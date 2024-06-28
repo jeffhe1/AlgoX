@@ -10,14 +10,16 @@ import {
     NavigationMenuViewport,
   } from "@/components/ui/navigation-menu"
 import Link from "next/link";
+import "./custom_animations.css";
+
 const products: { title: string; href: string; description: string}[] = [
     {
-        title: "Product 1",
+        title: "Feature 1",
         href: "/",
         description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, animi cupiditate ducimus nisi dignissimos expedita repellendus adipisci natus similique minus mollitia necessitatibus recusandae enim odit illum distinctio tempore alias. Provident!",
     },
     {
-        title: "Product 2",
+        title: "Feature 2",
         href: "/",
         description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est, earum harum vero, ipsam maxime eius architecto sequi molestias corporis, officia libero animi tenetur sint ut totam! Sed tempore explicabo ullam?",
     }
@@ -27,7 +29,7 @@ export function Infobar() {
         <NavigationMenu>
         <NavigationMenuList>
             <NavigationMenuItem>
-            <NavigationMenuTrigger >Products</NavigationMenuTrigger>
+            <NavigationMenuTrigger >Explore</NavigationMenuTrigger>
             <NavigationMenuContent>
                 <ul className="flex-col gap-3 p-4 md:w-[400px] lg:w-[500px]">
                     {products.map((product) => (
@@ -46,11 +48,12 @@ export function Infobar() {
             </NavigationMenuContent>
             </NavigationMenuItem>
             <div className="flex items-start justify-start gap-5">
-                <Link href="/doc" passHref={true}>
-                        <h1 className="text-sm mt-0.5 hover:underline">Docs</h1>
+                <Link href='/' passHref={true}>
+                        <h1 className="text-sm mt-0.5 darken">Home</h1>
                 </Link>
+
                 <Link href="/doc" passHref={true}>
-                        <h1 className="text-sm mt-0.5 hover:underline">Pricing Plans</h1>
+                        <h1 className="text-sm mt-0.5 darken">Pricing Plans</h1>
                 </Link>
             </div>
           

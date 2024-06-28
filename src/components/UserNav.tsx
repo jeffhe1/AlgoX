@@ -4,13 +4,12 @@ import Link from "next/link"
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components"
 import { Button } from "./ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
-import { CreditCard, Home, Settings, LogOut } from "lucide-react"
+import { CreditCard, Settings, LogOut } from "lucide-react"
 
 
 
 
 export const navItems=[
-    {name: "Home", href: "/dashboard", icon:Home},
     {name: "Settings", href: "/dashboard/settings", icon:Settings},
     {name: "Billing", href: "/dashboard/billing", icon: CreditCard},
 ]
@@ -26,7 +25,7 @@ export function UserNav({name, email, image} : {
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                     <Avatar>
                         <AvatarImage src={image}alt=""/>
-                        <AvatarFallback>Ya</AvatarFallback>
+                        <AvatarFallback>A</AvatarFallback>
                     </Avatar>
                 </Button>
             </DropdownMenuTrigger>
@@ -53,10 +52,11 @@ export function UserNav({name, email, image} : {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="w-full flex justify-between items-center">
                     <LogoutLink>
-                        <div className="flex flex-row items-center">
-                            <LogOut className="h-4 w-4 text-primary"/>
-                            <DropdownMenuItem className="hover:cursor-pointer">Log out</DropdownMenuItem>
-                        </div>
+                            <div className="flex flex-row items-center">
+                                <LogOut className="h-4 w-4 text-primary"/>
+                                <DropdownMenuItem className="hover:cursor-pointer">Log out</DropdownMenuItem>
+                            </div>
+                        
                         
                     </LogoutLink>
                 </DropdownMenuItem>

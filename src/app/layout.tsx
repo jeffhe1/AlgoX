@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Navbar } from "@/components/Navbar";
 import "./styles.css";
 import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { Navbar } from "@/components/Navbar";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="./ax.ico"></link>
+        <link rel="icon" href="/ax.ico"></link>
       </head>
       <UserProvider>
         <body className={inter.className}>
@@ -31,7 +31,7 @@ export default function RootLayout({
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange>
-          <Navbar />
+          <Navbar/>
           {children}
       </ThemeProvider>
       </body>

@@ -1,0 +1,8 @@
+.darken {
+    transition: 0.5s;
+}
+
+.darken:hover {
+    color : rgb(192, 192, 192);
+    opacity: 0.9;
+}
