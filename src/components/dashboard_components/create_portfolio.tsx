@@ -28,7 +28,7 @@ export default function CreatePortfolio() {
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values.portfolio_name);
+        
     }
 
     if (step === 1) {      
