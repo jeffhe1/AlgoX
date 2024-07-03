@@ -89,7 +89,7 @@ export async function Navbar() {
                                     <Link href='/portfolio'>
                                             <Button className="hidden md:block text-white bg-black">My Portfolio</Button>
                                     </Link>
-                                    <ModeToggle/> 
+                                    
                                     <UserNav email={user?.email as string} image={user?.picture as string} name={name}/>      
                             </div> 
                         ):(
@@ -103,6 +103,7 @@ export async function Navbar() {
                                 </RegisterLink>
                             </div>
                         )}
+                        <ModeToggle/> 
                 </div>
             </div>
         </nav>

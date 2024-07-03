@@ -11,4 +11,31 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl= env("DIRECT_URL")
+}
+
+model User {
+  id String @id @unique
+  name String?
+  email String @unique
+  stripeCustomerId String? @unique
+  colorScheme String @default("Light")
+  portfolioexists Boolean @default(false)
+  portfolios Portfolio[]
+}
+
+model Portfolio {
+  id String @id @unique
+  name String
+  holdings Holding[]
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Holding {
+  id String @id @unique
+  symbol String
+  amount Float
+  portfolioId String
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id])
 }

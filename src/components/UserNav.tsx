@@ -56,12 +56,8 @@ export function UserNav({name, email, image} : {
                                 <LogOut className="h-4 w-4 text-primary"/>
                                 <DropdownMenuItem className="hover:cursor-pointer">Log out</DropdownMenuItem>
                             </div>
-                        
-                        
                     </LogoutLink>
                 </DropdownMenuItem>
-                
-                
             </DropdownMenuContent>
         </DropdownMenu>
     )

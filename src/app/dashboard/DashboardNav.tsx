@@ -1,13 +1,14 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { CreditCard, Home, Settings } from "lucide-react";
+import { CandlestickChart } from "lucide-react";
 import Link from "next/link";
-import { navItems } from "@/components/UserNav";
+const navItems = [
+    {name: "Portfolio", href: "/dashboard", icon:CandlestickChart},
+]
 
 export function DashboardNav() {
     const pathname = usePathname();
-    console.log(pathname)
     return (
         <nav className="grid items-start gap-2">
             {navItems.map((item, index) => (
