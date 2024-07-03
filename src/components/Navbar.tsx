@@ -86,8 +86,8 @@ export async function Navbar() {
                 <div className="container flex justify-between">
                         { await isAuthenticated() ? (
                             <div className="container flex justify-end gap-5">    
-                                    <Link href='/portfolio'>
-                                            <Button className="hidden md:block text-white bg-black">My Portfolio</Button>
+                                    <Link href='/dashboard'>
+                                        <Button className="hidden md:block text-white bg-black">My Portfolio</Button>
                                     </Link>
                                     
                                     <UserNav email={user?.email as string} image={user?.picture as string} name={name}/>      

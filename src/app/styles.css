@@ -31,3 +31,10 @@
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
+
+.round-box {
+  background: rgba(169,169,169,0.1);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}

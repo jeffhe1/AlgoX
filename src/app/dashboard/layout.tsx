@@ -19,7 +19,6 @@ async function getData({email, id, firstName, lastName}:{
             stripeCustomerId: true,
         }
     })
-    console.log(user);
     if (!user) {
         const name = `${firstName ?? ""} ${lastName ?? ""}`;
         await prisma.user.create({

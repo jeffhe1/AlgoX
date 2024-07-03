@@ -1,25 +1,28 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import prisma from "@/lib/db";
+import CreatePortfolio from "@/components/dashboard_components/create_portfolio";
+
 export default async function Dashboard() {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
+    const userData = await prisma.user.findUnique({
+        where: {
+            id : user?.id
+        },
+        select: {
+            id: true,
+            portfolioexists: true
+        }
+    });
+    
     return(
-        <div>
-            <section className="flex-row">
-                <h1 className="text-2xl font-bold">Account Info</h1>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full mt-5">
-                    <Avatar>
-                    <AvatarImage src={user?.picture as string} className="">
-
-                    </AvatarImage>
-                    <AvatarFallback>
-                        {user?.given_name as string}
-                    </AvatarFallback>
-                    </Avatar>
-                </Button>
-                
-            </section>    
+        <div className="container h-[100vh]">
+            {userData?.portfolioexists ? (
+                <div>
+                </div>
+            ):(
+                <CreatePortfolio/>
+            )}
         </div>
     )
 }

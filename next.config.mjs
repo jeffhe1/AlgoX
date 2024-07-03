@@ -3,7 +3,7 @@ const nextConfig = {
     async redirects() {
         return [
             {
-                source: "/default_pages/home",
+                source: "/",
                 destination: "/home",
                 permanent: true,
             }
