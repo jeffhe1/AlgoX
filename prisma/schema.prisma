@@ -1,41 +1,38 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  directUrl= env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id String @id @unique
-  name String?
-  email String @unique
-  stripeCustomerId String? @unique
-  colorScheme String @default("Light")
-  portfolioexists Boolean @default(false)
-  portfolios Portfolio[]
+  id               String      @id @unique
+  name             String?
+  email            String      @unique
+  stripeCustomerId String?     @unique
+  colorScheme      String      @default("Light")
+  profileImage     String?
+  portfolios       Portfolio[]
 }
 
 model Portfolio {
-  id String @id @unique
-  name String
-  holdings Holding[]
-  userId String
-  user User @relation(fields: [userId], references: [id])
+  name        String
+  userId      String
+  id          Int       @id @unique @default(autoincrement())
+  fiat_reserve Float
+  holdings    Holding[]
+  AssetHolder User      @relation(fields: [userId], references: [id], onDelete : Cascade)
 }
 
 model Holding {
-  id String @id @unique
-  symbol String
-  amount Float
-  portfolioId String
-  portfolio Portfolio @relation(fields: [portfolioId], references: [id])
+  symbol        String?
+  amount        Float?
+  price         Float?
+  portfolioId   Int
+  current_price Float?
+  updateAt      DateTime  @id @default(now())
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
 }

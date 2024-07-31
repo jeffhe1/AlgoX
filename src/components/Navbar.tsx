@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { ModeToggle } from "./ui/modetogglebutton";
 import { Button } from "./ui/button";
-import { getKindeServerSession, LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/server";
+import { getKindeServerSession, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/server";
 import React from "react";
 import { UserNav } from "./UserNav";
 import { Infobar } from "./Infobar";
@@ -17,37 +16,55 @@ import {
     NavigationMenuViewport,
   } from "@/components/ui/navigation-menu"
 import { LayoutDashboardIcon } from "lucide-react";
+import ModeToggleSwitch from "./ui/modetoggleswitch";
+import ModeToggle from "./ui/modetoggle";
 
+import { createClient } from "@/utils/supabase/server";
+import prisma from "@/lib/db";
+const tools : {title: string; href: string;}[] = [
+    {
+        title: "Portfolio Backtester",
+        href: "/",
+    },
+    {
+        title: "Stock Screener",
+        href: "/",
+    },
+    {
+        title: "Portfolio Optimizer",
+        href: "/",
+    }
+];
 
 export async function Navbar() {
-    const { isAuthenticated, getUser } = getKindeServerSession();
-    const user = await getUser();
-    const name = user?.given_name as string + " " + user?.family_name as string;
-
-    const tools : {title: string; href: string;}[] = [
-        {
-            title: "Portfolio Backtester",
-            href: "/",
-        },
-        {
-            title: "Stock Screener",
-            href: "/",
-        },
-        {
-            title: "Portfolio Optimizer",
-            href: "/",
-        }
-    ];
-
+    
+    const supabase = createClient();
+    const { data, error } = await supabase.auth.getUser();
+    const user = data.user;
+    let name;
+    const email = user?.email as string;
+    if (email) {
+        const response = await prisma.user.findUnique({
+            where: {
+                email: email,
+            },
+            select:{
+                name: true,
+            }
+        })
+        name = response?.name;
+    }else{
+        console.log("user not authenticated");
+    }
     return (
-        <nav className="border-b bg-background h-[8vh] flex items-center max-w-[100vw]">
+        <nav className="border-b bg-background h-[8vh] flex items-center">
             <div className="container flex justify-between max-w-[100vw]">
                 <div className="flex justify-start pl-[2vw]">
                     <Link href="/">
                         <h1 className="text-2xl font-bold">Algo<span className="text-primary">X</span></h1>
                     </Link>
                 </div>
-                { await isAuthenticated() ? (
+                { data.user ? (
                     <div className="container flex justify-start gap-5">
                         <Link href='/dashboard'> 
                             <Button variant = 'ghost' className="hidden md:block ">Dashboard</Button>
@@ -84,26 +101,22 @@ export async function Navbar() {
                     </div>
                 ) }
                 <div className="container flex justify-between">
-                        { await isAuthenticated() ? (
+                        { data.user ? (
                             <div className="container flex justify-end gap-5">    
                                     <Link href='/dashboard'>
                                         <Button className="hidden md:block text-white bg-black">My Portfolio</Button>
                                     </Link>
                                     
-                                    <UserNav email={user?.email as string} image={user?.picture as string} name={name}/>      
+                                    <UserNav name={name??""} email={user?.email as string} image={user?.user_metadata.picture as string}/>      
                             </div> 
                         ):(
                             <div className="container flex justify-end gap-5">
-                                <LoginLink>
-                                    <Button className="hidden md:block font-bold">Login</Button>
-                                </LoginLink>
-                                
-                                <RegisterLink>
-                                    <Button className="hidden md:block font-bold " style={{ backgroundColor: "#B3B3B3" }}>Sign up</Button>
-                                </RegisterLink>
+                                <Link href="/login">
+                                    <Button className="hidden md:block font-bold">Join Now</Button>
+                                </Link>
                             </div>
                         )}
-                        <ModeToggle/> 
+                        <ModeToggle/>
                 </div>
             </div>
         </nav>

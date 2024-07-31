@@ -3,6 +3,8 @@ import { DashboardNav } from "./DashboardNav"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/db";
+import { createClient } from "@/utils/supabase/server";
+import { Navbar } from "@/components/Navbar";
 async function getData({email, id, firstName, lastName}:{
     email: string,
     id: string,
@@ -37,24 +39,23 @@ export const metadata: Metadata = {
   };
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
-    if(!user) {
-        return redirect('/');
-    }
-    await getData({
-        email: user.email as string, 
-        firstName: user.given_name as string, 
-        lastName: user.family_name as string, 
-        id: user.id,
-        profileImage: user.picture});
-    return (
-        <div className="flex flex-col sapce-y-6 mt-10">
-            <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
+    const supabase = createClient();
+    const { data, error } = await supabase.auth.getUser();
 
-                <DashboardNav/>
-                <main>{children}</main>
+    if (error || !data) {
+        redirect("/login");
+    }
+    
+    return (
+        <main >
+            <Navbar/>
+            <div className="flex flex-col space-y-6 mt-10 h-[100vh]">
+                <div className="grid flex-1 gap-12 md:grid-cols-[200px_1fr] px-[10%]">
+                    <DashboardNav/>
+                    <main>{children}</main>
+                </div>
             </div>
-        </div>
+        </main>
+            
     )
 }

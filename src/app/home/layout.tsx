@@ -7,6 +7,7 @@ export default function HomeLayout( {
 }>) { 
     return ( 
             <main>
+                 <Navbar/>
                 {children}        
             </main>
     )

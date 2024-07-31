@@ -1,28 +1,37 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import prisma from "@/lib/db";
-import CreatePortfolio from "@/components/dashboard_components/create_portfolio";
+"use server"
+import PortfolioLayout from "@/components/dashboard_components/portfolio_app/portfolio_layout";
+import { createClient } from "@/utils/supabase/server";
+import { Prisma, PrismaClient } from "@prisma/client";
+
 
 export default async function Dashboard() {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
-    const userData = await prisma.user.findUnique({
-        where: {
-            id : user?.id
-        },
-        select: {
-            id: true,
-            portfolioexists: true
+    const supabase = createClient();
+    const { data, error }= await supabase.auth.getUser();
+    const email = data.user?.email;
+
+    const prisma = new PrismaClient();
+    const userInclude = Prisma.validator<Prisma.UserInclude>()({
+        portfolios: {
+            include: {
+                holdings: true,
+                
+            }
         }
-    });
-    
+    })
+    type UserData = Prisma.UserGetPayload<{
+        include : typeof userInclude
+    }>
+
+    const userData = await prisma.user.findUnique({
+        where:{
+            email: email,
+        },
+        include: userInclude
+    })
+
     return(
-        <div className="container h-[100vh]">
-            {userData?.portfolioexists ? (
-                <div>
-                </div>
-            ):(
-                <CreatePortfolio/>
-            )}
+        <div className="h-[90vh] p-5 grid auto-rows-max grid-flow-row-dense">
+            <PortfolioLayout userData={userData}/>
         </div>
     )
 }

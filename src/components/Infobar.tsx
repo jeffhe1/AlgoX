@@ -14,14 +14,19 @@ import "./custom_animations.css";
 
 const products: { title: string; href: string; description: string}[] = [
     {
-        title: "Feature 1",
-        href: "/",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, animi cupiditate ducimus nisi dignissimos expedita repellendus adipisci natus similique minus mollitia necessitatibus recusandae enim odit illum distinctio tempore alias. Provident!",
+        title: "Portfolio Tracker",
+        href: "/dashboard",
+        description: "Track yourportfolio"
     },
     {
-        title: "Feature 2",
+        title: "Stock Screener",
         href: "/",
-        description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est, earum harum vero, ipsam maxime eius architecto sequi molestias corporis, officia libero animi tenetur sint ut totam! Sed tempore explicabo ullam?",
+        description: "Find your next stock"
+    },
+    {
+        title: "AI Portfolio Optimizer",
+        href: "/",
+        description: "Optimize your portfolio"
     }
 ]
 export function Infobar() {
@@ -33,9 +38,9 @@ export function Infobar() {
             <NavigationMenuContent>
                 <ul className="flex-col gap-3 p-4 md:w-[400px] lg:w-[500px]">
                     {products.map((product) => (
-                        <li key={product.title} className="flex flex-row">
-                            <div className="flex flex-row">
-                                <Link href={product.href} passHref={true}>
+                        <li key={product.title} className="container">
+                            <div className='flex flex-row'>
+                                <Link href={product.href} passHref={true} className='w-[200px]'>
                                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                                         {product.title}
                                     </NavigationMenuLink>

@@ -20,9 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/ax.ico"></link>
+        <script src="https://accounts.google.com/gsi/client" async></script>
       </head>
       <UserProvider>
         <body className={inter.className}>
@@ -31,7 +33,7 @@ export default function RootLayout({
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange>
-          <Navbar/>
+         
           {children}
       </ThemeProvider>
       </body>

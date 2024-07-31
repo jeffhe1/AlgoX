@@ -1,8 +1,147 @@
 .darken {
     transition: 0.5s;
 }
-
 .darken:hover {
     color : rgb(192, 192, 192);
     opacity: 0.9;
+}
+@keyframes priceFadeInGreen{
+    from {
+        color: var(--secondary-foreground);
+    }
+
+    50% {
+        color: green;
+    }
+    to{
+        color: var(--secondary-foreground);
+    }
+}
+@keyframes priceFadeInGreenChveron{
+    from {
+        color: var(--secondary-foreground);
+        opacity: 0;
+    }
+
+    50% {
+        color: green;
+        opacity:1;
+    }
+    to{
+        color: var(--secondary-foreground);
+        opacity:0;
+    }
+}
+@keyframes priceFadeInRed{
+    from{
+        color: var(--secondary-foreground);
+    }
+    50% {
+        color: red;
+    }
+    to{
+        color: var(--secondary-foreground);
+    }
+}
+
+@keyframes priceFadeInRedChevron{
+    from{
+        color: var(--secondary-foreground);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+        color: red;
+    }
+    to{
+        color: var(--secondary-foreground);
+        opacity: 0;
+    }
+}
+.price-update-green{
+    animation: priceFadeInGreen 5s forwards;
+}
+.price-update-green-chevron{
+    animation: priceFadeInGreenChveron 5s forwards;
+}
+
+.price-update-red {
+    animation: priceFadeInRed 5s forwards;
+}
+.price-update-red-chevron{
+    animation: priceFadeInRedChevron 5s forwards;
+}
+
+@keyframes pieSliceEnlarge{
+    from{
+        transform: scaleZ(1);
+    }
+    to{
+        transform: scaleZ(2);
+    }
+}
+
+.pie-slice-enlarge{
+    transition: 0.5s;
+}
+
+.pie-slice-enlarge:hover {
+    animation: pieSliceEnlarge 1s forwards;
+}
+
+@keyframes modeToggleEnlarge{
+    from {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.mode-toggle-enlarge{
+    transition: 1s;
+}
+.mode-toggle-enlarge:hover {
+    transform: scale(1.1);
+}
+
+.mode-toggle {
+    transition:5s;
+}
+
+@keyframes collapsibleOpen {
+    from {
+        height: 0,
+    }
+    to {
+        height: 100%,
+    }
+}
+
+.collapsible{
+    transition: 2s;
+}
+
+.collapsible-open{
+    animation: collapsibleOpen 2s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in-2s {
+    animation: fadeIn 2s forwards;
+}
+
+.fade-in-5s{
+    animation: fadeIn 5s forwards;
 }
